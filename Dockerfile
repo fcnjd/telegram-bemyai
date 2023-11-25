@@ -71,9 +71,9 @@ RUN --mount=type=cache,target=/root/.cache \
 # PRODUCTION
 # Final image used for runtime
 ################################
-FROM python-base as production
-ENV FASTAPI_ENV=production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./telegram-bemyai /app/
-WORKDIR /app
-ENTRYPOINT ["poetry", "run", "telegram-bemyai"]
+#FROM python-base as production
+#ENV FASTAPI_ENV=production
+#COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+#COPY ./telegram_bemyai /app/
+#WORKDIR /app
+ENTRYPOINT ["poetry", "run", "telegram_bemyai"]
