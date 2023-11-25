@@ -5,6 +5,8 @@ import logging
 import os
 import sys
 import base64
+import json
+
 from openai import OpenAI
 
 # Enable logging
@@ -27,8 +29,28 @@ client = OpenAI()
 def encode_image(image_file):
     return base64.b64encode(image_file).decode('utf-8')
 
+def is_user_allowed(message):
+    try:
+        with open('allowed_users.json', 'r') as file:
+            allowed_users = json.load(file)
+        if message.from_user.id in allowed_users:
+            return True
+        else:
+            bot.reply_to(message, f"Sorry, du bist nicht autorisiert diesen Bot zu nutzen. Deine User-ID ist: {message.from_user.id}")
+            return False
+    except FileNotFoundError:
+        logger.error("Allowed users file not found")
+        return False
+
+def authorized_user_only(func):
+    def wrapper(message):
+        if is_user_allowed(message):
+            return func(message)
+    return wrapper
+
 # Handler für das Empfangen von Fotos
 @bot.message_handler(content_types=['photo'])
+@authorized_user_only
 def handle_photo(message):
     try:
         file_info = bot.get_file(message.photo[-1].file_id)
@@ -69,4 +91,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
