@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "telegram-bemyai"
+name = "telegram_bemyai"
 version = "0.1.0"
 description = "Telegram bot that fetches image descriptions from OpenAI GPT-4"
 authors = ["Julian Dreykorn <dreykorn.julian@gmail.com>"]
@@ -11,7 +11,7 @@ openai = "^1.3.5"
 pyTelegramBotAPI = "^4.14.0"
 
 [tool.poetry.scripts]
-telegram-bemyai = "telegram-bemyai.bot:main"
+telegram_bemyai = "telegram_bemyai.bot:main"
 
 [build-system]
 requires = ["poetry-core"]
