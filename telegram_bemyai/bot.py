@@ -20,6 +20,11 @@ if not BOT_TOKEN:
     logger.error("TELEGRAM_BOT_TOKEN environment variable not set")
     sys.exit(1)
 
+# Exit if OpenAI API key isn't set
+if not os.getenv("OPENAI_API_KEY"):
+    logger.error("OPENAI_API_KEY environment variable not set")
+    sys.exit(1)
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # Initialize the OpenAI client
